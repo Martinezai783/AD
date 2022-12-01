@@ -1,0 +1,179 @@
+@font-face {
+  font-family: 'Cyberpunk';
+  src: url(font/Cyberpunk.ttf);
+}
+:root {
+    --primary-color: #05d9e8;
+  }
+  
+  * {
+    box-sizing: border-box;
+    font-family: Barlow;
+  }
+
+ 
+  p{
+    font-size: 25px;
+    font-family: Cyberpunk;
+    margin: 5px;
+    color: white;
+  }
+
+  .margenes{
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  body {
+    background: url(https://wallpaperaccess.com/full/4709159.jpg);
+    background-size: cover ;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  .header-botones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%; 
+  }
+
+  .header-botones h2{
+  
+    font-size: 90px;
+    font-family: Cyberpunk;
+    margin: 5px;
+    color: #ff2a6a;
+  }
+
+  img {
+    width:"75px";
+    height:"100px";
+    border-radius: 5px;
+  }
+
+  button {
+    display: inline-block;
+    background-color: #01012b;
+    border-radius: 10px;
+    border: 4px double var(--primary-color);
+    color: #ff2a6a;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 20px;
+    width: 8rem;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    align-self: center;
+  }
+  button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  button:hover {
+    background-color: var(--primary-color)
+  }
+  button:hover span {
+    padding-right: 25px;
+  }
+  button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  button:disabled {
+    opacity: 0.75;
+  }
+
+  button:disabled:hover {
+    background-color: #01012b;
+    box-shadow: none;
+  }
+
+  
+
+  
+
+
+  .contenedor{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+  }
+  
+  .grupo-cartas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .input-carta {
+    position: relative;
+    height: wrap;
+    width: wrap;
+    margin: 0.5rem;
+    background-color: #01012b;
+    border-radius: 8px; 
+  }
+  
+  .input-carta input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+    
+  }
+  
+  .input-carta .carta-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    transition: all 300ms ease;
+  }
+
+  .input-carta label {
+    color: #ff2a6a;
+    font-size: 0.80rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  input:checked+.carta-display {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 12px var(--primary-color);
+    transform: scale(1.1);
+  }
+  
+  input:hover+.carta-display {
+    box-shadow: 0 0 18px #ff2a6a;
+  }
+
+  button:hover {
+    box-shadow: 0 0 18px #ff2a6a;
+  }
+  
+  input:checked+.radio-tile ion-icon,
+  input:checked+.carta-display label {
+    color: white;
+  }
