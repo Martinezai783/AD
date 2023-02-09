@@ -15,7 +15,7 @@ function conectarDB(){
     function insertarCarta($con,$nombre,$anio,$imagen,$mazo){
         try
   {
-    $sql = "INSERT INTO CARTAS(NOMBRE,AÑO,IMAGEN,ID_MAZO) VALUES (:NOMBRE,:AÑO,:IMAGEN,:ID_MAZO)";
+    $sql = "INSERT INTO CARTA(NOMBRE,AÑO,IMAGEN,ID_MAZO) VALUES (:NOMBRE,:AÑO,:IMAGEN,:ID_MAZO)";
     $stmt = $con->prepare($sql);
     $stmt->bindParam(':NOMBRE', $nombre);
     $stmt->bindParam(':FECHA', $anio);
@@ -66,6 +66,26 @@ catch (PDOException $ex)
 return $con->lastInsertId();
 
   }
+
+
+  function modificarMazo($con,$nombre,$descripcion){
+    $result =0;
+    try
+    {
+      $sql = "UPDATE MAZO SET DESCRIPCION=:descripcion WHERE NOMBRE=:nombre";
+      $stmt = $con->prepare($sql);
+      $stmt->bindParam(':nombre', $nombre,PDO::PARAM_STR);
+      $stmt->bindParam(':descripcion', $descripcion,PDO::PARAM_STR); 
+      $stmt->execute();
+      $result = $stmt->rowCount();
+     }
+    catch (PDOException $ex)
+    {
+      echo ("Error en modificarMazo".$ex->getMessage());
+    }
+    return $result;
+  }
+
 
   function borrarMazo($con,$nombre){
 
