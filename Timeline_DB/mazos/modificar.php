@@ -20,7 +20,7 @@
         <span class="input-group-text" id="inputGroup-sizing-default">Descripcion </span>
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
-    <button type="button" class="btn btn-secondary btn-lg">Crear mazo </button>
+    <button type="button" class="btn btn-secondary btn-lg">Modificar mazo </button>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
