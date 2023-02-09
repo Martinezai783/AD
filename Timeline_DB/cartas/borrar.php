@@ -19,54 +19,59 @@ $con=conectarDB();
 ?>
 <div class="container">
 <form method="post" action="borrar.php">
-   <h1>Borrar</h1>
-   <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="mazo">
-    <option selected value="-1">Mazos</option>
+   <h2><?php 
+
+    $mazo = selectMazoById($con,$_POST["mazo"]);
+   
+    echo 'Seleccione la carta el mazo "'.$mazo[0]["NOMBRE"].'" que desea borrar';
+   
+   ?></h2>
+
+    <?php echo "<input type='text' hidden name='mazo' value=".$_POST["mazo"]."/>" ?>
+
+    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="carta">
+    <option selected value="-1">Cartas</option>
     <?php
-        $mazos = selectMazos($con);
+        $cartas = selectCartas($con,$_POST["mazo"]);
 
-        for ($i = 0; $i<=count($mazos); $i++) {
+        for ($i = 0; $i<=count($cartas); $i++) {
 
-            echo '<option value="'.$mazos[$i]["ID"].'">'.$mazos[$i]["NOMBRE"].' </option>';
+            echo '<option value="'.$cartas[$i]["ID"].'">'.$cartas[$i]["NOMBRE"].' </option>';
             
-          }
-
-
-    ?>
-  </select>
+          }?>
+    </select>
   <?php 
         if(isset($_POST["borrar"])){
 
-            if($_POST["mazo"] != "-1"){
+            if($_POST["carta"] != "-1"){
         
                 
-                $id = $_POST["mazo"];
+                $id = $_POST["carta"];
 
-                $mensaje = borrarMazo($con,$id);
-
+                $mensaje = borrarCarta($con,$id);
 
                 echo '<div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default" name="">Alerta</span>
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                 value="'.$mensaje.'" readonly>
                 </div>';
+
             }else{
                 echo '<div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default" name="">Alerta</span>
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                value="Selecciona un mazo para borrar" readonly>
+                value="Selecciona una carta para borrar" readonly>
                 </div>';
-            }
+            }}?>
 
-
-        }?>
   <input type="submit" value="Borrar mazo" class="btn btn-secondary btn-lg" name="borrar"/>
-  </form>
+</form>
+</div> 
 
     
-</div>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>     
 </body>
 </html>
+

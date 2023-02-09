@@ -11,29 +11,18 @@
 
     <?php
 
-    require_once("dbutils.php");
+    require_once("../dbutils.php");
 
     var_export($_POST);
 
+    $con=conectarDB();
 
-    $nombre = $_POST["nombre"];
-
-    $descripcion = $_POST["descripcion"];
-    
-    if(isset($_POST["crear"])){
-
-        
-
-    }
-    
     ?>
 
 
 <div class="container">
     <h1>Agregar</h1>
-    <form method="post" action="agregar.html">
-
-    
+    <form method="post" action="agregar.php">
         <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default" name="">Nombre del mazo </span>
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
@@ -44,7 +33,35 @@
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
             name="descripcion">
         </div>
-        <button type="button" class="btn btn-secondary btn-lg" name="crear">Crear mazo </button>
+        <?php 
+        if(isset($_POST["crear"])){
+
+            if(!empty($_POST["nombre"]) && !empty($_POST["descripcion"])){
+        
+                $nombre = $_POST["nombre"];
+        
+                $descripcion = $_POST["descripcion"];
+
+                $mensaje = insertarMazo($con,$nombre,$descripcion);
+
+
+                echo '<div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default" name="">Alerta</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                value="'.$mensaje.'" readonly>
+                </div>';
+            }else{
+                echo '<div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default" name="">Alerta</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                value="Faltan Datos." readonly>
+                </div>';
+            }
+
+
+        }?>
+        <input type="submit" class="btn btn-secondary btn-lg" value="Crear mazo" name="crear"/>
+        
     </form>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

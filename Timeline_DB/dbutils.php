@@ -3,7 +3,7 @@
 
 function conectarDB(){
     try{
-        $db = new PDO("mysql:host=localhost;dbname=DB_FRUITIS;charset=utf8mb4","root","");
+        $db = new PDO("mysql:host=localhost;dbname=db_timeline;charset=utf8mb4","root","");
         $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         return $db;
     }
@@ -43,12 +43,63 @@ function borrarCarta($con,$id){
          }
         catch (PDOException $ex)
         {
-          echo ("Error en borrarCarta
-          ".$ex->getMessage());
+          echo ("Error en borrarCarta".$ex->getMessage());
         }
-        return $result;
+        return "Carta ".$result." borrada.";
 
     }
+
+    function selectMazos($conDb)
+    {
+      try
+      {
+        $sql = "SELECT * FROM MAZO";
+        $stmt = $conDb->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+       }
+      catch (PDOException $ex)
+      {
+        echo ("Error selectMazos".$ex->getMessage());
+      }
+      return $data;
+    }
+
+
+    function selectMazoById($conDb,$id)
+    {
+      try
+      {
+        $sql = "SELECT * FROM MAZO WHERE ID=:id";
+        $stmt = $conDb->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+       }
+      catch (PDOException $ex)
+      {
+        echo ("Error selectMazos".$ex->getMessage());
+      }
+      return $data;
+    }
+    
+    function selectCartas($conDb,$id)
+    {
+      try
+      {
+        $sql = "SELECT * FROM CARTA WHERE ID_MAZO=:id";
+        $stmt = $conDb->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+       }
+      catch (PDOException $ex)
+      {
+        echo ("Error selectCarta".$ex->getMessage());
+      }
+      return $data;
+    }
+  
 
   function insertarMazo($con,$nombre,$desc){
       try
@@ -63,18 +114,18 @@ catch (PDOException $ex)
 {
   echo ("Error en insertarMazo".$ex->getMessage());
 }
-return $con->lastInsertId();
+return "Mazo ".$con->lastInsertId()." insertado con éxito.";
 
   }
 
 
-  function modificarMazo($con,$nombre,$descripcion){
+  function modificarMazo($con,$id,$descripcion){
     $result =0;
     try
     {
-      $sql = "UPDATE MAZO SET DESCRIPCION=:descripcion WHERE NOMBRE=:nombre";
+      $sql = "UPDATE MAZO SET DESCRIPCION=:descripcion WHERE ID=:id";
       $stmt = $con->prepare($sql);
-      $stmt->bindParam(':nombre', $nombre,PDO::PARAM_STR);
+      $stmt->bindParam(':id', $id,PDO::PARAM_STR);
       $stmt->bindParam(':descripcion', $descripcion,PDO::PARAM_STR); 
       $stmt->execute();
       $result = $stmt->rowCount();
@@ -83,17 +134,17 @@ return $con->lastInsertId();
     {
       echo ("Error en modificarMazo".$ex->getMessage());
     }
-    return $result;
+    return $result." mazo modificado.";
   }
 
 
-  function borrarMazo($con,$nombre){
+  function borrarMazo($con,$id){
 
     try
     {
-      $sql = "DELETE FROM MAZO WHERE NOMBRE=:NOMBRE";
+      $sql = "DELETE FROM MAZO WHERE ID=:id";
       $stmt = $con->prepare($sql);
-      $stmt->bindParam(':NOMBRE', $nombre);
+      $stmt->bindParam(':id', $id);
       $stmt->execute();
       $result = $stmt->rowCount();
      }
@@ -102,7 +153,7 @@ return $con->lastInsertId();
       echo ("Error en borrarMazo
       ".$ex->getMessage());
     }
-    return $result;
+    return $result."mazo/s borrados";
 
 }
 
