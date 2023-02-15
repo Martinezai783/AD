@@ -30,8 +30,6 @@ $con=conectarDB();
             echo '<option value="'.$mazos[$i]["ID"].'">'.$mazos[$i]["NOMBRE"].' </option>';
             
           }
-
-
     ?>
   </select>
   <?php 

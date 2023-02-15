@@ -157,7 +157,7 @@ return "Mazo ".$con->lastInsertId()." insertado con éxito.";
 
 }
 
-  function consultarRanking($con)
+  function selectRanking($con)
 
   {
     try
