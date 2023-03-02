@@ -10,7 +10,7 @@
 <body>
 <?php
 
-require_once("../dbutils.php");
+require_once("../../dbutils.php");
 
 if(!isset($_POST["mazo"])){
 
@@ -26,8 +26,6 @@ $con=conectarDB();
 <div class="container">
 <form method="post" action="borrar.php">
    <h2><?php 
-
-  
 
     $mazo = selectMazoById($con,$_POST["mazo"]);
    

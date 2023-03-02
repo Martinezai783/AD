@@ -10,9 +10,9 @@
 <body>
 <?php
 
-require_once("../dbutils.php");
+require_once("../../dbutils.php");
 
-var_export($_POST);
+//var_export($_POST);
 
 $con=conectarDB();
 
@@ -24,7 +24,7 @@ $con=conectarDB();
     <?php
         $mazos = selectMazos($con);
 
-        for ($i = 0; $i<=count($mazos); $i++) {
+        for ($i = 0; $i<count($mazos); $i++) {
 
             echo '<option value="'.$mazos[$i]["ID"].'">'.$mazos[$i]["NOMBRE"].' </option>';
             

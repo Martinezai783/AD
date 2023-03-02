@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 02-03-2023 a las 13:11:21
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.0.19
+-- Host: 127.0.0.1
+-- Generation Time: Feb 10, 2023 at 12:07 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `db_timeline`
+-- Database: `db_timeline`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `carta`
+-- Table structure for table `carta`
 --
 
 CREATE TABLE `carta` (
@@ -35,17 +35,10 @@ CREATE TABLE `carta` (
   `ID_MAZO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- Volcado de datos para la tabla `carta`
---
-
-INSERT INTO `carta` (`ID`, `NOMBRE`, `AÑO`, `IMAGEN`, `ID_MAZO`) VALUES
-(4, 'Test modificado', 1940, '../imagenes/camelModificado.jpg', 4);
-
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `mazo`
+-- Table structure for table `mazo`
 --
 
 CREATE TABLE `mazo` (
@@ -55,7 +48,7 @@ CREATE TABLE `mazo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Volcado de datos para la tabla `mazo`
+-- Dumping data for table `mazo`
 --
 
 INSERT INTO `mazo` (`ID`, `NOMBRE`, `DESCRIPCION`) VALUES
@@ -64,7 +57,7 @@ INSERT INTO `mazo` (`ID`, `NOMBRE`, `DESCRIPCION`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `puntuaciones`
+-- Table structure for table `puntuaciones`
 --
 
 CREATE TABLE `puntuaciones` (
@@ -74,57 +67,57 @@ CREATE TABLE `puntuaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `carta`
+-- Indexes for table `carta`
 --
 ALTER TABLE `carta`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `ID_MAZO` (`ID_MAZO`);
 
 --
--- Indices de la tabla `mazo`
+-- Indexes for table `mazo`
 --
 ALTER TABLE `mazo`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `index_by_name` (`NOMBRE`);
 
 --
--- Indices de la tabla `puntuaciones`
+-- Indexes for table `puntuaciones`
 --
 ALTER TABLE `puntuaciones`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `carta`
+-- AUTO_INCREMENT for table `carta`
 --
 ALTER TABLE `carta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `mazo`
+-- AUTO_INCREMENT for table `mazo`
 --
 ALTER TABLE `mazo`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `puntuaciones`
+-- AUTO_INCREMENT for table `puntuaciones`
 --
 ALTER TABLE `puntuaciones`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `carta`
+-- Constraints for table `carta`
 --
 ALTER TABLE `carta`
   ADD CONSTRAINT `carta_ibfk_1` FOREIGN KEY (`ID_MAZO`) REFERENCES `mazo` (`ID`);

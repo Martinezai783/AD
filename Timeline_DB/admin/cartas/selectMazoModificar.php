@@ -10,7 +10,7 @@
 <body>
 <?php
 
-require_once("../dbutils.php");
+require_once("../../dbutils.php");
 
 
 $con=conectarDB();
