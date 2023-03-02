@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 10, 2023 at 12:07 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.0.19
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 02-03-2023 a las 16:56:02
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_timeline`
+-- Base de datos: `db_timeline`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `carta`
+-- Estructura de tabla para la tabla `carta`
 --
 
 CREATE TABLE `carta` (
@@ -35,10 +35,25 @@ CREATE TABLE `carta` (
   `ID_MAZO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `carta`
+--
+
+INSERT INTO `carta` (`ID`, `NOMBRE`, `AÑO`, `IMAGEN`, `ID_MAZO`) VALUES
+(3, 'Tras la muerte del príncipe Shotoku, den', 621, '../imagenes/ec5a7ec822d0a830d06ef5dba9eaacbd.jpg', 6),
+(4, 'Japón se desprende de china', 838, '../imagenes/838.jpg', 6),
+(5, 'Surgimiento de la clase samurái', 1051, '../imagenes/1051.jpg', 6),
+(6, 'Primeras guerra sino-japonesa', 1894, '../imagenes/1894.jpg', 6),
+(7, 'Bombardeo sobre Hisoshima y Nagasaki', 1945, '../imagenes/1945.jpg', 6),
+(8, 'Terremoto y tsunami de 2011 y accidente ', 2011, '../imagenes/2011.jpg', 6),
+(9, 'Nacimiento de Miyamoto Musashi', 1584, '../imagenes/1584.png', 6),
+(10, 'Muerte de Miyamoto Musashi', 1645, '../imagenes/1645.jpg', 6),
+(11, 'Pepo pepito', 2023, '../imagenes/pepito.jpg', 8);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mazo`
+-- Estructura de tabla para la tabla `mazo`
 --
 
 CREATE TABLE `mazo` (
@@ -48,16 +63,18 @@ CREATE TABLE `mazo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Dumping data for table `mazo`
+-- Volcado de datos para la tabla `mazo`
 --
 
 INSERT INTO `mazo` (`ID`, `NOMBRE`, `DESCRIPCION`) VALUES
-(4, 'Egipto', 'Test modificado');
+(4, 'Egipto', 'Test modificado'),
+(6, 'Japon', 'Mazo cultural Japonés'),
+(8, 'Pepo', 'Pepo Pepo');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `puntuaciones`
+-- Estructura de tabla para la tabla `puntuaciones`
 --
 
 CREATE TABLE `puntuaciones` (
@@ -67,57 +84,73 @@ CREATE TABLE `puntuaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Indexes for dumped tables
+-- Volcado de datos para la tabla `puntuaciones`
+--
+
+INSERT INTO `puntuaciones` (`ID`, `NOMBRE`, `PUNTUACION`) VALUES
+(1, 'AAA', 500),
+(2, 'BBB', 215),
+(3, 'CCC', 888),
+(4, 'DDD', 999),
+(5, 'BAB', 780),
+(6, 'FFF', 500),
+(7, 'XDD', 843),
+(8, 'AAA', 999),
+(9, 'CCC', 69420),
+(10, 'BOB', 960);
+
+--
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `carta`
+-- Indices de la tabla `carta`
 --
 ALTER TABLE `carta`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `ID_MAZO` (`ID_MAZO`);
 
 --
--- Indexes for table `mazo`
+-- Indices de la tabla `mazo`
 --
 ALTER TABLE `mazo`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `index_by_name` (`NOMBRE`);
 
 --
--- Indexes for table `puntuaciones`
+-- Indices de la tabla `puntuaciones`
 --
 ALTER TABLE `puntuaciones`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `carta`
+-- AUTO_INCREMENT de la tabla `carta`
 --
 ALTER TABLE `carta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `mazo`
+-- AUTO_INCREMENT de la tabla `mazo`
 --
 ALTER TABLE `mazo`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `puntuaciones`
+-- AUTO_INCREMENT de la tabla `puntuaciones`
 --
 ALTER TABLE `puntuaciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `carta`
+-- Filtros para la tabla `carta`
 --
 ALTER TABLE `carta`
   ADD CONSTRAINT `carta_ibfk_1` FOREIGN KEY (`ID_MAZO`) REFERENCES `mazo` (`ID`);

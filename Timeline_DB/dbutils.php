@@ -178,15 +178,15 @@ return "Mazo ".$con->lastInsertId()." insertado con éxito.";
 
 }
 
-  function selectRanking($con)
+  function selectPuntuaciones($con)
 
   {
     try
     {
-      $sql = "SELECT * FROM RANKING LIMIT 10";
+      $sql = "SELECT puntuacion FROM PUNTUACIONES LIMIT 10";
       $stmt = $con->prepare($sql);
       $stmt->execute();
-      $result = $stmt->fetchAll();
+      $result = $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     catch (PDOException $ex){
