@@ -15,10 +15,10 @@ function conectarDB(){
     function insertarCarta($con,$nombre,$anio,$imagen,$mazo){
         try
   {
-    $sql = "INSERT INTO CARTA(NOMBRE,AÑO,IMAGEN,ID_MAZO) VALUES (:NOMBRE,:AÑO,:IMAGEN,:ID_MAZO)";
+    $sql = "INSERT INTO CARTA(NOMBRE,AÑO,IMAGEN,ID_MAZO) VALUES (:NOMBRE,:ANIO,:IMAGEN,:ID_MAZO)";
     $stmt = $con->prepare($sql);
     $stmt->bindParam(':NOMBRE', $nombre);
-    $stmt->bindParam(':FECHA', $anio);
+    $stmt->bindParam(':ANIO', $anio);
     $stmt->bindParam(':IMAGEN', $imagen);
     $stmt->bindParam(':ID_MAZO', $mazo);
     $stmt->execute();
@@ -27,9 +27,30 @@ function conectarDB(){
   {
     echo ("Error en insertarCarta".$ex->getMessage());
   }
-  return $con->lastInsertId();
+  return "Carta ".$con->lastInsertId()." insertada con éxito.";
 
-    } 
+    }
+    
+    function modificarCarta($con,$id,$nombre,$anio,$imagen,$mazo){
+      $result =0;
+      try
+      {
+        $sql = "UPDATE CARTA SET NOMBRE=:NOMBRE, AÑO=:ANIO, IMAGEN=:IMAGEN, ID_MAZO=:MAZO WHERE ID=:id";
+        $stmt = $con->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':NOMBRE',$nombre);
+        $stmt->bindParam(':ANIO',$anio);
+        $stmt->bindParam(':IMAGEN',$imagen);
+        $stmt->bindParam(':MAZO', $mazo); 
+        $stmt->execute();
+        $result = $stmt->rowCount();
+       }
+      catch (PDOException $ex)
+      {
+        echo ("Error en modificarCarta".$ex->getMessage());
+      }
+      return $result." carta modificado.";
+    }
 
 function borrarCarta($con,$id){
 

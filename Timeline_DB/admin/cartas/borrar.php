@@ -12,6 +12,12 @@
 
 require_once("../dbutils.php");
 
+if(!isset($_POST["mazo"])){
+
+    header("Location: selectMazoBorrar.php");
+  
+  }
+
 //var_export($_POST);
 
 $con=conectarDB();
@@ -21,20 +27,30 @@ $con=conectarDB();
 <form method="post" action="borrar.php">
    <h2><?php 
 
+  
+
     $mazo = selectMazoById($con,$_POST["mazo"]);
    
     echo 'Seleccione la carta el mazo "'.$mazo[0]["NOMBRE"].'" que desea borrar';
    
    ?></h2>
 
-    <?php echo "<input type='text' hidden name='mazo' value=".$_POST["mazo"]."/>" ?>
+        <?php 
+            
+            if(isset($_POST["mazo"]))
+
+            {
+            echo '<input type="hidden" name="mazo" value="'.$_POST["mazo"].'">';
+            }
+
+        ?>
 
     <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="carta">
     <option selected value="-1">Cartas</option>
     <?php
         $cartas = selectCartas($con,$_POST["mazo"]);
 
-        for ($i = 0; $i<=count($cartas); $i++) {
+        for ($i = 0; $i<count($cartas); $i++) {
 
             echo '<option value="'.$cartas[$i]["ID"].'">'.$cartas[$i]["NOMBRE"].' </option>';
             

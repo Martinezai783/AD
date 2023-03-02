@@ -21,7 +21,6 @@ $con=conectarDB();
 <form method="post" action="borrar.php">
    <h1>Selecione el Mazo del cual quiere borrar cartas</h1>
    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="mazo">
-    <option selected value="-1">Mazos</option>
     <?php
         $mazos = selectMazos($con);
 

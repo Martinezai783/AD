@@ -25,7 +25,7 @@ $con=conectarDB();
     <?php
         $mazos = selectMazos($con);
 
-        for ($i = 0; $i<=count($mazos); $i++) {
+        for ($i = 0; $i<count($mazos); $i++) {
 
             echo '<option value="'.$mazos[$i]["ID"].'">'.$mazos[$i]["NOMBRE"].' </option>';
             
