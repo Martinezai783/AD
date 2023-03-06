@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; height: 100vh;">
-        <a href="./jugar/dummy.html" style="width: 40%; height: 40%; margin: 10px;">
+        <a href="./jugar/dummy.php" style="width: 40%; height: 40%; margin: 10px;">
             <button type="button" class="btn btn-secondary btn-lg" style="width: 100%; height: 100%; font-size: 40px">Jugar</button>
         </a>
         <a href="./admin/admin.html" style="width: 40%; height: 40%; margin: 10px;">

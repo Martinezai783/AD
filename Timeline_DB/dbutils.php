@@ -210,9 +210,18 @@ return "Mazo ".$con->lastInsertId()." insertado con éxito.";
     return $con->lastInsertId();
 
 }
-
-
-  
-
-
+function agregarPuntuacion($con, $nombreJugador, $idMazo, $puntuacion) {
+  try {
+    $sql = "INSERT INTO PUNTUACIONES(NOMBRE, ID_MAZO, PUNTUACION) VALUES (:nombre, :idMazo, :puntuacion)";
+    $stmt = $con->prepare($sql);
+    $stmt->bindParam(':nombre', $nombreJugador);
+    $stmt->bindParam(':puntuacion', $puntuacion);
+    $stmt->bindParam(':idMazo', $idMazo);
+    $stmt->execute();
+    return true;
+  } catch (PDOException $ex) {
+    echo ("Error al agregar puntuación: ".$ex->getMessage());
+    return false;
+  }
+}
 ?>
