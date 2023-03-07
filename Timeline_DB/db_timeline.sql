@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2023 at 04:40 PM
+-- Generation Time: Mar 07, 2023 at 01:26 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -88,14 +88,8 @@ CREATE TABLE `puntuaciones` (
 --
 
 INSERT INTO `puntuaciones` (`ID`, `NOMBRE`, `ID_MAZO`, `PUNTUACION`) VALUES
-(1, 'Luc', 6, 0),
-(2, 'Luc', 6, 0),
-(3, 'Luc', 6, 0),
-(4, 'Luc', 6, 0),
-(5, 'Luc', 6, 0),
-(6, 'Luc', 6, 0),
-(7, 'Luc', 6, 0),
-(8, 'Luc', 6, 0);
+(53, 'Luc', 6, 999),
+(54, 'And', 4, 880);
 
 --
 -- Indexes for dumped tables
@@ -142,7 +136,7 @@ ALTER TABLE `mazo`
 -- AUTO_INCREMENT for table `puntuaciones`
 --
 ALTER TABLE `puntuaciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- Constraints for dumped tables

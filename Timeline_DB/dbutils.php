@@ -177,14 +177,13 @@ return "Mazo ".$con->lastInsertId()." insertado con éxito.";
 }
 
   function selectPuntuaciones($con)
-
   {
     try
     {
-      $sql = "SELECT puntuacion FROM PUNTUACIONES LIMIT 10";
+      $sql = "SELECT * FROM PUNTUACIONES ORDER BY PUNTUACION DESC LIMIT 10";
       $stmt = $con->prepare($sql);
       $stmt->execute();
-      $result = $stmt->fetchAll(PDO::FETCH_COLUMN);
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     catch (PDOException $ex){
@@ -192,22 +191,19 @@ return "Mazo ".$con->lastInsertId()." insertado con éxito.";
     }
     return $result;
   }
-
-  function insertarPuntuacion($con,$nombre,$points){
-    try{
-      $sql = "INSERT INTO PUNTUACIONES(NOMBRE,PUNTUACION) VALUES (:NOMBRE,:PUNTUACION)";
-      $stmt = $con->prepare($sql);
-      $stmt->bindParam(':NOMBRE', $nombre);
-      $stmt->bindParam(':PUNTUACION', $points);
-      $stmt->execute();
+  function selectNombreMazo($con, $id) {
+    try {
+        $sql = "SELECT NOMBRE FROM MAZO WHERE ID=:id";
+        $stmt = $con->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $nombre = $stmt->fetchColumn();
+    } catch (PDOException $ex) {
+        echo ("Error en nombreMazo".$ex->getMessage());
     }
-    catch (PDOException $ex)
-    {
-      echo ("Error en insertarPuntuacion".$ex->getMessage());
-    }
-    return $con->lastInsertId();
-
+    return $nombre;
 }
+
 function agregarPuntuacion($con, $nombreJugador, $idMazo, $puntuacion) {
   try {
     $sql = "INSERT INTO PUNTUACIONES(NOMBRE, ID_MAZO, PUNTUACION) VALUES (:nombre, :idMazo, :puntuacion)";
@@ -216,9 +212,11 @@ function agregarPuntuacion($con, $nombreJugador, $idMazo, $puntuacion) {
     $stmt->bindParam(':puntuacion', $puntuacion);
     $stmt->bindParam(':idMazo', $idMazo);
     $stmt->execute();
-    return true;
+    return $con->lastInsertId('PUNTUACIONES');
   } catch (PDOException $ex) {
     echo ("Error al agregar puntuación: ".$ex->getMessage());
     return false;
   }
 }
+
+
