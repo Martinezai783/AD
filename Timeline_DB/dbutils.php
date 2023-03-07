@@ -1,6 +1,4 @@
 <?php 
-
-
 function conectarDB(){
     try{
         $db = new PDO("mysql:host=localhost;dbname=db_timeline;charset=utf8mb4","root","");
@@ -224,4 +222,3 @@ function agregarPuntuacion($con, $nombreJugador, $idMazo, $puntuacion) {
     return false;
   }
 }
-?>
