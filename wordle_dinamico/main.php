@@ -38,9 +38,10 @@ for ($i = 0; $i < $longitud_palabra; $i++) {
   if (isset($_SESSION["letra$numero_letra" . "_introducida"])) {
     echo "value='{$_SESSION["letra$numero_letra" . "_introducida"]}'";
   }
-  echo ">";
+  echo "maxlength='1 '>";
 }
 echo "<button type='submit' name='guardar'>Guardar</button>";
+echo '<input type="submit" name="eliminar_session" value="Eliminar sesión">';
 echo "</form>";
 
 // Obtener los valores introducidos y guardarlos en un array en la sesión
@@ -54,7 +55,7 @@ if (isset($_POST['guardar'])) {
 }
 ?>
 <form method="post" action="">
-  <input type="submit" name="eliminar_session" value="Eliminar sesión">
+  
 </form>
 
 <?php
