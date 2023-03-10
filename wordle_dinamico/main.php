@@ -1,67 +1,71 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<center><img src="./img/wordleLogo.png"></center>
 <?php
-session_start(); // Iniciar la sesión
+session_start();
 
-// Crear un array con 50 palabras de 2 a 7 letras del diccionario
-$palabras = array(
-  "arte", "bello", "casa", "dedo", "fuego", "gris", "huevo", "igual",
-  "jardin", "largo", "mesa", "nuevo", "oro", "pelo", "queso", "rojo",
-  "silla", "torre", "uva", "vino", "yoga", "zorro", "blanco", "crema",
-  "delta", "flor", "gato", "hotel", "jugo", "koala", "lapiz", "manzana",
-  "nadar", "perro", "queso", "rana", "sol", "tigre", "union", "volar",
-  "yegua", "zapato", "brisa", "cielo", "dragon", "espejo", "flecha", "abrigo",
-  "heroe", "isla", "jaula", "luna", "monte", "nieve", "opalo", "pulgar"
-);
+// Si no hay una palabra incógnita almacenada en la sesión, elige una nueva
+if (!isset($_SESSION['word'])) {
+  $words = $words = array(
+    "ala", "arte", "azul", "barco", "bello", "blanco", "bola",
+    "bueno", "casa", "cena", "cerdo", "clase", "coche", "coco", "color", "correr",
+    "crema", "dado", "diente", "dinero", "diván", "dulce", "eje", "fama", "fiesta",
+    "flor", "gato", "goma", "gris", "hacha", "hacer", "hora", "joven", "juego",
+    "lago", "lápiz", "largo", "letra", "libro", "lista", "llama", "luz", "mano",
+    "mesa", "mina", "mono", "mundo", "nido", "oro"
+  );
+  $_SESSION['word'] = $words[array_rand($words)];
+  $_SESSION['guesses'] = 0;
+}
+// Separa la palabra incógnita en letras individuales
+$word = str_split($_SESSION['word']);
+$length = count($word);
+// Si el jugador envió un intento de adivinar la palabra
+if (isset($_POST['guess'])) {
+  // Incrementa el contador de intentos
+  $_SESSION['guesses']++;
 
-// Verificar si la palabra ya está en la sesión antes de generar una nueva
-if (!isset($_SESSION['palabra'])) {
-  // Elegir una palabra aleatoria del array
-  $palabra_aleatoria = $palabras[array_rand($palabras)];
-  $_SESSION["palabra"] = $palabra_aleatoria;
+  // Separa la palabra intentada en letras individuales
+  $guess = str_split(strtolower($_POST['guess']));
 
-  // Obtener la longitud de la palabra y guardar cada letra y su número en la sesión
-  $longitud_palabra = strlen($palabra_aleatoria);
-  for ($i = 0; $i < $longitud_palabra; $i++) {
-    $letra = $palabra_aleatoria[$i];
-    $numero_letra = $i + 1;
-    $_SESSION["letra$numero_letra"] = $letra;
+  // Compara las letras una por una
+  $result = "";
+  for ($i = 0; $i < $length; $i++) {
+    if ($guess[$i] == $word[$i]) {
+      $result .= "<span style='color: green; text-size:'20px''>{$guess[$i]}</span>";
+    } elseif (in_array($guess[$i], $word)) {
+      $result .= "<span style='color: yellow;'>{$guess[$i]}</span>";
+    } else {
+      $result .= "<span style='color: grey;'>{$guess[$i]}</span>";
+    }
   }
-}
 
-var_export($_SESSION);
+  // Muestra el resultado al jugador
+  echo "<center><p><font size='3'>Intento # {$_SESSION['guesses']}:</font><font size='5'> {$result}</font></p></center><br>";
 
-// Generar inputs para cada letra de la palabra
-echo "<form method='post' action='main.php'>";
-$longitud_palabra = strlen($_SESSION["palabra"]);
-for ($i = 0; $i < $longitud_palabra; $i++) {
-  $numero_letra = $i + 1;
-  echo "<input type='text' name='letra$numero_letra' placeholder='Letra $numero_letra' ";
-  if (isset($_SESSION["letra$numero_letra" . "_introducida"])) {
-    echo "value='{$_SESSION["letra$numero_letra" . "_introducida"]}'";
+  // Si el jugador adivinó la palabra
+  if ($guess == $word) {
+    echo "<center><p><font size='4'>¡Felicidades! Adivinaste la palabra en {$_SESSION['guesses']} intentos.<br>";
+    echo "La palabra era: {$_SESSION['word']}</font></p><br>";
+    echo "<form><input type='submit' value='Jugar de nuevo'></form>";
+    // Elimina la palabra de la sesión para que comience un nuevo juego
+    unset($_SESSION['word']);
+  } else {
+    // Si el jugador agotó sus intentos
+    if ($_SESSION['guesses'] == 6) {
+      echo "<center><p><font size='4'>Lo siento, agotaste tus 6 intentos.<br>";
+      echo "La palabra era: {$_SESSION['word']}</font></p><br>";
+      echo "<form><input type='submit' value='Jugar de nuevo'></form></center>";
+      // Elimina la palabra de la sesión para que comience un nuevo juego
+      unset($_SESSION['word']);
+    } else {
+      // Muestra el formulario para que el jugador intente adivinar de nuevo
+      echo "<center><form method='post' style='font-size: 20px;'><input type='text' name='guess' maxlength='{$length}' pattern='[a-zA-Z]{{$length}}' required>";
+      echo "<input type='submit' value='Adivinar'></form></center>";
+    }
   }
-  echo "maxlength='1 '>";
+} else {
+  // Muestra el formulario para que el jugador intente adivinar por primera vez
+  echo "<center><form method='post' style='font-size: 20px;'><input type='text' name='guess' maxlength='{$length}' pattern='[a-zA-Z]{{$length}}' required>";
+  echo "<input type='submit' value='Adivinar'></form></center>";
 }
-echo "<button type='submit' name='guardar'>Guardar</button>";
-echo '<input type="submit" name="eliminar_session" value="Eliminar sesión">';
-echo "</form>";
-
-// Obtener los valores introducidos y guardarlos en un array en la sesión
-if (isset($_POST['guardar'])) {
-  $longitud_palabra = strlen($_SESSION["palabra"]);
-  for ($i = 0; $i < $longitud_palabra; $i++) {
-    $numero_letra = $i + 1;
-    $letra_introducida = $_POST["letra$numero_letra"];
-    $_SESSION["letra$numero_letra" . "_introducida"] = $letra_introducida;
-  }
-}
-?>
-<form method="post" action="">
-  
-</form>
-
-<?php
-if (isset($_POST['eliminar_session'])) {
-  // Eliminamos la sesión
-  session_unset();
-  session_destroy();
-}
-?>
